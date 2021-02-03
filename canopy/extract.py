@@ -63,9 +63,13 @@ def extract_patches(image_uri,patch_radius,
 
         # get patch from image
         image_patch = image.read(window=((row-patch_radius,row+patch_radius+1),(col-patch_radius,col+patch_radius+1)))
+        chm_patch = chm_vrt.read(window=((row-patch_radius,row+patch_radius+1),(col-patch_radius,col+patch_radius+1)))
 
         # check for nodata in patch
         if np.any(image_patch<0): continue
+
+        # stack the chm onto image as new band as the last dimension
+        image_patch = np.stack((image_patch, chm_patch), axis=-1)
 
         # append the patch and label to the lists
         image_patches.append(image_patch)
