@@ -68,7 +68,11 @@ def extract_patches(image_uri,patch_radius,
         # check for nodata in patch
         if np.any(image_patch<0): continue
 
-        # stack the chm onto image as new band as the last dimension
+        # TODO: calculate more Lidar based dimensions
+          # get pointcloud
+          # used pdal filters.optimalneighborhood and filters.covariancefeatures
+
+        # stack the chm_patch onto image_patch as new band as the last dimension
         image_patch = np.stack((image_patch, chm_patch), axis=-1)
 
         # append the patch and label to the lists
